@@ -1,17 +1,20 @@
 package dev.spider.cli;
 
 import org.apache.commons.cli.*;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.lang.System.out;
+import static java.util.logging.Level.*;
 
 /**
+ * java cli use apache-cli
+ *
  * @author lgc
- * @apiNote java cli use apache-cli
  */
 public class ApacheCli {
     static final String greeting = "Hello,motherfucker。。。";
@@ -23,32 +26,31 @@ public class ApacheCli {
                 |                                           |
                 +-------------------------------------------+
             """;
-    static final String infoPrefix = """
-            [INFO] #
-            """;
-    static final String DebugPrefix = """
-            [DEBUG] #
-            """;
 
+    /**
+     * main
+     *
+     * @param args argLine
+     */
     public static void main(String[] args) {
-        Logger log = LogManager.getLogger(ApacheCli.class);
-
+        Logger log = Logger.getLogger(ApacheCli.class.getName());
         Options options = new Options();
-        Option test = Option.builder().argName("随便").option("T").longOpt("Test").numberOfArgs(2).optionalArg(false).type(String.class).desc("Test Builder Mode").build();
         Option help = Option.builder().option("h").longOpt("help").optionalArg(true).desc("print usage ").build();
-        Option time = Option.builder().argName("time").option("t").longOpt("time").optionalArg(true).type(String.class).desc("format time use your pattern").build();
         Option debug = Option.builder().option("x").longOpt("debug").optionalArg(true).desc("turn debug mode").build();
-        options.addOption(test);
+        Option time = Option.builder().option("f").longOpt("formatTime").optionalArg(true).desc("format time use your pattern").build();
         options.addOption(help);
-        options.addOption(time);
         options.addOption(debug);
-        DefaultParser dp = new DefaultParser();
+        options.addOption(time);
+        CommandLineParser dp = new GnuParser();
+        Level globalLevel = INFO;
         try {
             CommandLine cl = dp.parse(options, args);
-            log.info(LAUNCH_BANNER);
+            log.info("\n" + LAUNCH_BANNER);
             if (cl.hasOption("x")) {
-                log.atLevel(Level.DEBUG);
-                log.debug("DEBUG MODE LAUNCH.....");
+                globalLevel = WARNING;
+                log.log(globalLevel, "DEBUG MODE LAUNCH.....");
+                System.getProperties().list(out);
+                log.log(globalLevel, "-- listing properties end --");
             }
 
             //help
@@ -58,22 +60,23 @@ public class ApacheCli {
                 return;
             }
 
-            if (cl.hasOption("t")) {
-                String format = cl.getOptionValue("t");
-                if (Objects.isNull(format)) {
-                    log.info("{}:{}", timeFormatSuffix, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-                } else {
-                    log.info("{}:{}", timeFormatSuffix, new SimpleDateFormat(format).format(new Date()));
+            // format time
+            if (cl.hasOption("f")) {
+                String format = cl.getOptionValue("f");
+                String pattern = "yyyy-MM-dd HH:mm:ss";
+                if (Objects.nonNull(format)) {
+                    pattern = format;
                 }
-            } else {
-                log.debug("nb");
+                String msg = timeFormatSuffix + new SimpleDateFormat(pattern).format(new Date());
+                log.log(globalLevel, msg);
             }
         } catch (MissingArgumentException missingArgumentException) {
             Option option = missingArgumentException.getOption();
             String opt = option.getLongOpt();
-            log.warn("WARING option:{}", opt);
+            log.log(globalLevel, "WARING option:{}", opt);
         } catch (ParseException e) {
-            log.warn("Parse FAIL AT:{}", e.getMessage());
+            log.log(globalLevel, "Parse FAIL AT:{}", e.getMessage());
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,21 +9,21 @@ import org.junit.Test;
 public class ApacheCliTest {
 
     @Test
-    public void testApacheCli() throws Exception {
+    public void apacheCliTest() throws Exception {
         String args[] = {"-h"};
         ApacheCli.main(args);
     }
 
     @Test
-    public void testApacheCliWithTParam() throws Exception {
-        String args[] = {"-t yyyy-MM-dd HH:mm:ss"};
-        String args1[] = {"-t"};
+    public void apacheCliWithTParamTest() throws Exception {
+        String args[] = {"-f yyyy-MM-dd HH:mm:ss"};
+        String args1[] = {"-f"};
         ApacheCli.main(args);
     }
 
     @Test
-    public void testApacheCliDebugMode() throws Exception {
-        String args[] = {"-x", "-t yyyy-MM-dd HH:mm:ss"};
+    public void apacheCliDebugModeTest() throws Exception {
+        String args[] = {"-x", "-f yyyy-MM-dd HH:mm:ss"};
         ApacheCli.main(args);
     }
 }

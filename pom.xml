@@ -5,7 +5,7 @@
 
     <groupId>dev.spider</groupId>
     <artifactId>infra-java</artifactId>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -14,7 +14,9 @@
     </modules>
 
     <scm>
+        <url>http://liguangchang.cn:5678/repository/maven-releases/</url>
         <connection>scm:git:git@github.com:lgc523/infra-java.git</connection>
+        <developerConnection>scm:git:git@github.com:lgc523/infra-java.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -29,7 +31,6 @@
 
     <properties>
         <maven.test.skip>false</maven.test.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
         <maven.version.range>[3.8.0,)</maven.version.range>
@@ -95,20 +96,14 @@
                 <version>1.2.17</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>2.14.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>2.14.1</version>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.28</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
-        <finalName>spider-infra</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -140,6 +135,15 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
+                    <configuration>
+                        <tagNameFormat>V{project.version}</tagNameFormat>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.2.4</version>
                 </plugin>
             </plugins>
         </pluginManagement>

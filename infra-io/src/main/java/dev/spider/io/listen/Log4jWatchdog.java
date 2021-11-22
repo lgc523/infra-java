@@ -1,12 +1,17 @@
-package dev.spider.io;
+package dev.spider.io.listen;
+
 
 import org.apache.log4j.helpers.FileWatchdog;
+
+import java.util.logging.Logger;
 
 /**
  * @author lgc
  * @apiNote log4j fileWatchDog only files in current dir or specify file
  */
 public class Log4jWatchdog {
+    static final Logger log = Logger.getLogger(Log4jWatchdog.class.getName());
+
     public static void main(String[] args) {
         String fileName = "";
         FileWatchdogThread watchdogThread = new FileWatchdogThread(fileName);
@@ -24,7 +29,7 @@ public class Log4jWatchdog {
 
         @Override
         protected void doOnChange() {
-            System.out.println(filename);
+            log.info(filename);
         }
     }
 }
