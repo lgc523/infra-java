@@ -11,6 +11,7 @@ public class ApacheCliTest {
     @Test
     public void apacheCliTest() throws Exception {
         String args[] = {"-h"};
+        System.getProperties().list(System.out);
         ApacheCli.main(args);
     }
 

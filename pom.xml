@@ -11,6 +11,7 @@
     <modules>
         <module>infra-cli</module>
         <module>infra-io</module>
+        <module>infra-servlet</module>
     </modules>
 
     <scm>
