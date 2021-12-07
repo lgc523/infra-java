@@ -1,7 +1,0 @@
-<root>
-    <item name='java.lang.Runtime void exit(int)'>
-        <annotation name='org.jetbrains.annotations.Contract'>
-            <val val="&quot;_ -&gt; fail&quot;"/>
-        </annotation>
-    </item>
-</root>

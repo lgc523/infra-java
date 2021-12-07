@@ -12,6 +12,7 @@
         <module>infra-cli</module>
         <module>infra-io</module>
         <module>infra-servlet</module>
+        <module>infra-runtime</module>
     </modules>
 
     <scm>
@@ -43,7 +44,7 @@
 
     <repositories>
         <repository>
-            <id>nexus</id>
+            <id>public</id>
             <url>http://liguangchang.cn:5678/repository/maven-public/</url>
             <releases>
                 <enabled>true</enabled>
@@ -60,12 +61,12 @@
 
     <distributionManagement>
         <repository>
-            <id>maven-releases</id>
+            <id>releases</id>
             <name>Internal Releases</name>
             <url>http://liguangchang.cn:5678/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>maven-snapshots</id>
+            <id>snapshots</id>
             <name>Internal Snapshots</name>
             <url>http://liguangchang.cn:5678/repository/maven-snapshots/</url>
         </snapshotRepository>
@@ -80,7 +81,6 @@
                 <version>4.13.2</version>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
                 <groupId>commons-cli</groupId>
                 <artifactId>commons-cli</artifactId>
@@ -101,6 +101,17 @@
                 <artifactId>snakeyaml</artifactId>
                 <version>1.28</version>
             </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <scope>provided</scope>
+                <version>4.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.13.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -112,6 +123,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                     <configuration>
+                        <compilerArgument>-Xlint:unchecked</compilerArgument>
                         <source>15</source>
                         <target>15</target>
                         <encoding>UTF-8</encoding>
@@ -145,6 +157,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>3.2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.3.2</version>
+                    <configuration>
+                        <compilerArgument>-Xlint:unchecked</compilerArgument>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

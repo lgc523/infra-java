@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @author spider
  */
-@WebServlet(name = "hello", urlPatterns = "hello")
+@WebServlet(name = "hello", urlPatterns = "/hello")
 public class HelloServlet extends HttpServlet {
 
     @Override
@@ -30,7 +31,10 @@ public class HelloServlet extends HttpServlet {
         Runtime runtime = Runtime.getRuntime();
         Thread fuck_please = new Thread(() -> System.out.println("fuck please"));
         runtime.addShutdownHook(fuck_please);
-        runtime.exit(1);
+        PrintWriter writer = resp.getWriter();
+        String location = resp.getHeader("Location");
+        writer.println("hello");
+//        runtime.exit(1);
 //        runtime.halt(1);
     }
 }
