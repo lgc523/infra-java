@@ -1,6 +1,6 @@
 package dev.spider.service;
 
-import dev.spider.entity.PoJO;
+import dev.spider.entity.PoJo;
 import dev.spider.entity.Result;
 
 /**
@@ -9,5 +9,5 @@ import dev.spider.entity.Result;
 public interface GreetingService {
     String sayHello(String name);
 
-    Result<String> testGeneric(PoJO poJO);
+    Result<String> testGeneric(PoJo poJO);
 }

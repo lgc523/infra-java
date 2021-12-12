@@ -1,4 +1,4 @@
-package dev.spider.api;
+package dev.spider.api.basic;
 
 import dev.spider.service.GreetingServiceRpcContext;
 import org.apache.dubbo.config.ApplicationConfig;

@@ -1,4 +1,4 @@
-package dev.spider.api;
+package dev.spider.api.basic;
 
 import dev.spider.service.GreetingService;
 import org.apache.dubbo.config.ApplicationConfig;
@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 public class ApiAsyncCompletableFuture {
     public static void main(String[] args) throws InterruptedException {
         ReferenceConfig<GreetingService> referenceConfig = new ReferenceConfig<>();
-        referenceConfig.setApplication(new ApplicationConfig("dubbo-async-completeAble-future"));
+        referenceConfig.setApplication(new ApplicationConfig("async-completeAble-future"));
         referenceConfig.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
         referenceConfig.setInterface(GreetingService.class);
         referenceConfig.setTimeout(2000);

@@ -1,4 +1,4 @@
-package dev.spider.api;
+package dev.spider.api.basic;
 
 import dev.spider.service.GreetingService;
 import org.apache.dubbo.config.ApplicationConfig;
@@ -15,7 +15,7 @@ public class ApiAsyncConsumerCallBack {
     public static void main(String[] args) throws InterruptedException {
 
         ReferenceConfig<GreetingService> referenceConfig = new ReferenceConfig<>();
-        referenceConfig.setApplication(new ApplicationConfig("dubbo-consumer-async"));
+        referenceConfig.setApplication(new ApplicationConfig("consumer-async-callback"));
 
         referenceConfig.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
         referenceConfig.setInterface(GreetingService.class);

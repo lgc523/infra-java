@@ -1,6 +1,6 @@
 package dev.spider.service;
 
-import dev.spider.entity.PoJO;
+import dev.spider.entity.PoJo;
 import dev.spider.entity.Result;
 import org.apache.dubbo.common.json.JSON;
 import org.apache.dubbo.rpc.RpcContext;
@@ -20,11 +20,11 @@ public class GreetingServiceImpl implements GreetingService {
     }
 
     @Override
-    public Result<String> testGeneric(PoJO poJO) {
+    public Result<String> testGeneric(PoJo poJo) {
         Result<String> result = new Result<>();
         result.setSuccess(true);
         try {
-            result.setData(JSON.json(poJO));
+            result.setData(JSON.json(poJo));
         } catch (Exception e) {
 
         }

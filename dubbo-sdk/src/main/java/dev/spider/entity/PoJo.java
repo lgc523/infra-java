@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author spider
  */
-public class PoJO implements Serializable {
+public class PoJo implements Serializable {
     private String id;
     private String name;
 

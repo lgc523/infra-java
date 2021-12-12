@@ -1,4 +1,4 @@
-package dev.spider.api;
+package dev.spider.api.basic;
 
 import dev.spider.service.GreetingService;
 import org.apache.dubbo.config.ApplicationConfig;
@@ -6,30 +6,28 @@ import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.rpc.RpcContext;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 /**
  * @author spider
  */
-public class ApiConsumer {
-    public static void main(String[] args) {
-        //1.service ref instance
+public class ApiAsyncConsumer {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         ReferenceConfig<GreetingService> referenceConfig = new ReferenceConfig<>();
-        //2.app info
-        referenceConfig.setApplication(new ApplicationConfig("first-dubbo-consumer"));
-        //3.reg center
+        referenceConfig.setApplication(new ApplicationConfig("async-consumer"));
         referenceConfig.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
-        //4.inter timeout
         referenceConfig.setInterface(GreetingService.class);
-        referenceConfig.setTimeout(3000);
-        //5.lb
-//        referenceConfig.setLoadbalance("myLoadBalance");
-//        referenceConfig.setCluster("myBroadcast");
-        //6.group version
         referenceConfig.setVersion("0.0.1");
         referenceConfig.setGroup("dubbo");
-        //7.ref
-        GreetingService greetingService = referenceConfig.get();
-        RpcContext.getContext().setAttachment("company", "laji");
-        System.out.println(greetingService.sayHello("company"));
+        //default timeout 1000
+        referenceConfig.setTimeout(1100);
 
+        referenceConfig.setAsync(true);
+        GreetingService greetingService = referenceConfig.get();
+        System.out.println(greetingService.sayHello("async laji"));
+
+        Future<Object> future = RpcContext.getContext().getFuture();
+        System.out.println(future.get());
     }
 }

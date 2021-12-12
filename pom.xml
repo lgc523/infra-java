@@ -16,6 +16,7 @@
         <module>dubbo-consumer</module>
         <module>dubbo-provider</module>
         <module>infra-runtime</module>
+        <module>infra-jvm</module>
     </modules>
 
     <scm>
